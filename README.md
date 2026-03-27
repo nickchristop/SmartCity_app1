@@ -19,3 +19,9 @@ An interactive "Smart City" Android app designed to help citizens track and repo
 * UI System: Native Android XML Layouts 
 * Backend: Firebase Realtime Database
 * Architecture: Single-Activity with Fragment transitions (`BottomNavigationView`)
+
+## 🛠️ What Needs Fixing / TODOs
+* **Google Maps Integration**: The `MapFragment` is currently a placeholder. The Google Maps SDK needs to be initialized and configured to display the interactive map.
+* **Reporting Logic**: The `ReportFragment` UI is ready, but the "Submit" button needs Java logic to capture inputs (Title, Description, Coordinates) and save them to the Firebase Realtime Database.
+* **Data Synchronization**: The map needs to actively read from Firebase and generate pins/markers for everyone to see based on the active reports.
+* **Location Services**: The app needs Android Location permissions to allow users to automatically attach their current GPS coordinates when submitting a new issue.
