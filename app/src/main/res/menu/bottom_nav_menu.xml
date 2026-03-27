@@ -5,8 +5,8 @@
         android:title="Home"
         android:icon="@android:drawable/ic_menu_today" />
     <item
-        android:id="@+id/page_parking"
-        android:title="Parking"
+        android:id="@+id/page_map"
+        android:title="Map"
         android:icon="@android:drawable/ic_dialog_map" />
     <item
         android:id="@+id/page_report"

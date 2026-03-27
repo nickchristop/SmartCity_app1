@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report a Fix"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+        
+    <EditText
+        android:id="@+id/edit_report_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title of issue (e.g. Pothole)" />
+
+    <EditText
+        android:id="@+id/edit_report_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description and Location"
+        android:lines="4" />
+
+    <Button
+        android:id="@+id/btn_submit_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Report"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

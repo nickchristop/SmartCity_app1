@@ -39,7 +39,20 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(item -> {
-            // Εδώ αργότερα θα βάλουμε το switch για να αλλάζουν οι οθόνες
+            androidx.fragment.app.Fragment selectedFragment = null;
+            int itemId = item.getItemId();
+            if (itemId == R.id.page_home) {
+                selectedFragment = new HomeFragment();
+            } else if (itemId == R.id.page_map) {
+                selectedFragment = new MapFragment();
+            } else if (itemId == R.id.page_report) {
+                selectedFragment = new ReportFragment();
+            }
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
+            }
             return true;
         });
     }
