@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "609619558914",
+    "project_id": "smartcityui-12e16",
+    "storage_bucket": "smartcityui-12e16.firebasestorage.app",
+    "firebase_url": "https://smartcityui-12e16-default-rtdb.europe-west1.firebasedatabase.app/"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609619558914:android:3b9ec18c2e839d1da99d1b",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwmUa_1ywjG9jSfcZgB3BCDgU0mH7698I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
