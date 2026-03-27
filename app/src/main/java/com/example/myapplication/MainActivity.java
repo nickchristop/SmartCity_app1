@@ -32,21 +32,23 @@ public class MainActivity extends AppCompatActivity {
             android.util.Log.e("FIREBASE_DEBUG", "Error: " + e.getMessage());
         }
 
-        // Φορτώνουμε το Dashboard (Home) εξ ορισμού
+        // Load the Map (Home) by default
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
+                .replace(R.id.fragment_container, new MapFragment())
                 .commit();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setSelectedItemId(R.id.page_map);
+
         bottomNav.setOnItemSelectedListener(item -> {
             androidx.fragment.app.Fragment selectedFragment = null;
             int itemId = item.getItemId();
-            if (itemId == R.id.page_home) {
-                selectedFragment = new HomeFragment();
-            } else if (itemId == R.id.page_map) {
+            if (itemId == R.id.page_map) {
                 selectedFragment = new MapFragment();
-            } else if (itemId == R.id.page_report) {
-                selectedFragment = new ReportFragment();
+            } else if (itemId == R.id.page_account) {
+                selectedFragment = new AccountFragment();
+            } else if (itemId == R.id.page_settings) {
+                selectedFragment = new SettingsFragment();
             }
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction()

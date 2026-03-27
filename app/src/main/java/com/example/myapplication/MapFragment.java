@@ -12,6 +12,16 @@ public class MapFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        View fab = view.findViewById(R.id.fab_add_report);
+        if (fab != null) {
+            fab.setOnClickListener(v -> {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new ReportFragment())
+                        .addToBackStack(null)
+                        .commit();
+            });
+        }
+        return view;
     }
 }

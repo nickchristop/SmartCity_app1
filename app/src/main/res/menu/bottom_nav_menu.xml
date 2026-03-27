@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_home"
-        android:title="Home"
-        android:icon="@android:drawable/ic_menu_today" />
-    <item
         android:id="@+id/page_map"
         android:title="Map"
         android:icon="@android:drawable/ic_dialog_map" />
     <item
-        android:id="@+id/page_report"
-        android:title="Report"
-        android:icon="@android:drawable/ic_menu_report_image" />
+        android:id="@+id/page_account"
+        android:title="Account"
+        android:icon="@android:drawable/ic_menu_myplaces" />
+    <item
+        android:id="@+id/page_settings"
+        android:title="Settings"
+        android:icon="@android:drawable/ic_menu_preferences" />
 </menu>
