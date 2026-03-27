@@ -20,12 +20,23 @@ public class HomeFragment extends Fragment {
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) View reportCard = view.findViewById(R.id.card_reports); // Βεβαιώσου ότι έχεις αυτό το ID στο XML
 
         reportCard.setOnClickListener(v -> {
-            // Αλλαγή Fragment μέσω του Activity
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ReportFragment())
-                    .addToBackStack(null)
-                    .commit();
+            com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = 
+                getActivity().findViewById(R.id.bottom_navigation);
+            if (bottomNav != null) {
+                bottomNav.setSelectedItemId(R.id.page_report);
+            }
         });
+
+        View mapCard = view.findViewById(R.id.card_map);
+        if (mapCard != null) {
+            mapCard.setOnClickListener(v -> {
+                com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = 
+                    getActivity().findViewById(R.id.bottom_navigation);
+                if (bottomNav != null) {
+                    bottomNav.setSelectedItemId(R.id.page_map);
+                }
+            });
+        }
 
         return view;
     }
