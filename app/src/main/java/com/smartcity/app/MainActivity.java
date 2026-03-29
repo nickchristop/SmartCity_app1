@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.smartcity.app;
 
 import android.os.Bundle;
 
