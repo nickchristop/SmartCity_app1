@@ -19,20 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Ρύθμιση του URL χειροκίνητα
-        String databaseUrl = "https://smartcityui-12e16-default-rtdb.europe-west1.firebasedatabase.app/";
-
-        // 2. Δημιουργία Instance και εγγραφή
-        try {
-            com.google.firebase.database.FirebaseDatabase db =
-                    com.google.firebase.database.FirebaseDatabase.getInstance(databaseUrl);
-
-            db.getReference("connection_test").setValue("Connected at " + System.currentTimeMillis());
-
-            android.util.Log.d("FIREBASE_DEBUG", "Attempting to write to DB...");
-        } catch (Exception e) {
-            android.util.Log.e("FIREBASE_DEBUG", "Error: " + e.getMessage());
-        }
+        // Firebase legacy test logic has been decoupled and removed.
 
         // Load the Map (Home) by default
         getSupportFragmentManager().beginTransaction()
