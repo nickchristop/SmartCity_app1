@@ -1,4 +1,6 @@
-package com.smartcity.app;
+package com.smartcity.app.ui;
+
+import com.smartcity.app.R;
 
 import android.os.Bundle;
 
