@@ -76,12 +76,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
         }
         
+        View fabLocate = view.findViewById(R.id.fab_locate_me);
+        if (fabLocate != null) {
+            fabLocate.setOnClickListener(v -> triggerLocateMe());
+        }
+        
         return view;
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         this.googleMap = map;
+        
+        // Force critical Map native UI controls
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        
+        // Immediate Boot Coordinate Anchor (Marousi area) to prevent Mountain View defaults
+        LatLng marousiAnchor = new LatLng(38.056, 23.810);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marousiAnchor, 12f));
+
         setMapStyle(); // Dynamic Theme Shifting Execution
         checkLocationPermission();
 
@@ -160,7 +175,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void fallbackLocation() {
         if (googleMap == null) return;
-        LatLng defaultLocation = new LatLng(37.9838, 23.7275);
+        LatLng defaultLocation = new LatLng(38.056, 23.810);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12f));
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_glassmorphism_gradient"
     android:padding="24dp">
 
     <TextView
@@ -45,11 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            app:cardBackgroundColor="@color/glass_background"
+            app:cardBackgroundColor="#99FFFFFF"
             app:cardCornerRadius="24dp"
             app:cardElevation="2dp"
-            app:strokeWidth="1.2dp"
-            app:strokeColor="@color/glass_outline">
+            app:strokeWidth="1.5dp"
+            app:strokeColor="#FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,11 +89,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            app:cardBackgroundColor="@color/glass_background"
+            app:cardBackgroundColor="#99FFFFFF"
             app:cardCornerRadius="24dp"
             app:cardElevation="2dp"
-            app:strokeWidth="1.2dp"
-            app:strokeColor="@color/glass_outline">
+            app:strokeWidth="1.5dp"
+            app:strokeColor="#FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
