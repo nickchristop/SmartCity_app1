@@ -11,4 +11,14 @@
         <RadioButton android:id="@+id/rb_theme_dark" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dark Mode"/>
         <RadioButton android:id="@+id/rb_theme_system" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Follow System"/>
     </RadioGroup>
+    
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Notifications &amp; Privacy" android:textSize="22sp" android:textStyle="bold" android:layout_marginTop="32dp" android:layout_marginBottom="16dp"/>
+
+    <Switch android:id="@+id/switch_notifications" android:layout_width="match_parent" android:layout_height="wrap_content" 
+        android:text="Push Notifications" android:checked="true" android:textSize="18sp" android:layout_marginBottom="16dp"/>
+
+    <Switch android:id="@+id/switch_location" android:layout_width="match_parent" android:layout_height="wrap_content" 
+        android:text="Location Privacy Mode" android:checked="false" android:textSize="18sp"/>
+    
 </LinearLayout>

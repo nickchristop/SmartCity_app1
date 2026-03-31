@@ -58,12 +58,14 @@ public class LoginFragment extends Fragment {
         authViewModel.getAuthErrorState().observe(getViewLifecycleOwner(), errorMsg -> {
             if (errorMsg != null && !errorMsg.isEmpty()) {
                 Toast.makeText(getContext(), errorMsg, Toast.LENGTH_LONG).show();
+                authViewModel.clearErrorState(); // Consume the message to prevent lifecycle loops
             }
         });
 
         // Trigger safe termination and mapping override on success
         authViewModel.getAuthSuccessState().observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {
+                authViewModel.clearSuccessState();
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new AccountFragment())
                         .commit();

@@ -60,11 +60,13 @@ public class RegisterFragment extends Fragment {
         authViewModel.getAuthErrorState().observe(getViewLifecycleOwner(), errorMsg -> {
             if (errorMsg != null && !errorMsg.isEmpty()) {
                 Toast.makeText(getContext(), errorMsg, Toast.LENGTH_LONG).show();
+                authViewModel.clearErrorState();
             }
         });
 
         authViewModel.getAuthSuccessState().observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {
+                authViewModel.clearSuccessState();
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new AccountFragment())
                         .commit();

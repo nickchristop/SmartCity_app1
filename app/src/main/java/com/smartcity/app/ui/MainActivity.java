@@ -25,10 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Load the Dashboard (Landing Context) by default
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new DashboardFragment())
-                .commit();
+        if (savedInstanceState == null) {
+            // Load the Dashboard (Landing Context) by default ONLY if fresh launch
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new DashboardFragment())
+                    .commit();
+        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         

@@ -61,4 +61,12 @@ public class AuthViewModel extends ViewModel {
         authRepository.logout();
         authSuccessState.setValue(false);
     }
+    
+    public void clearErrorState() {
+        authErrorState.setValue(null);
+    }
+    
+    public void clearSuccessState() {
+        authSuccessState.setValue(null);
+    }
 }
