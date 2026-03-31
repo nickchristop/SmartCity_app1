@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="glass_background">#CC121212</color>
+    <color name="glass_outline">#4DFFFFFF</color>
+    <color name="background_gray">#121212</color>
+</resources>

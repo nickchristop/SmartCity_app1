@@ -123,20 +123,38 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void enableUserLocation() {
         if (googleMap == null) return;
         try {
+            // Enables the SDK floating UI crosshair
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
             
-            // Leverage FusedLocationProvider manually to center camera swiftly on open
-            fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
-                if (location != null) {
-                    LatLng currentPos = new LatLng(location.getLatitude(), location.getLongitude());
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15f));
-                } else {
-                    fallbackLocation();
-                }
+            // Intercept the native click event to forcefully route through FusedLocationProvider
+            googleMap.setOnMyLocationButtonClickListener(() -> {
+                triggerLocateMe();
+                return true; // Consume event to prevent redundant map tracking
             });
+            
+            triggerLocateMe(); // Boot configuration anchor
         } catch (SecurityException e) {
             fallbackLocation();
+        }
+    }
+
+    private void triggerLocateMe() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) 
+                == PackageManager.PERMISSION_GRANTED) {
+            
+            fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+                if (location != null) {
+                    LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    // 15f zoom smoothly centers the UI immediately onto coordinates
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15f));
+                } else {
+                    com.google.android.material.snackbar.Snackbar.make(requireView(), "Please turn on GPS / Location Services", com.google.android.material.snackbar.Snackbar.LENGTH_LONG).show();
+                }
+            });
+            
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         }
     }
 

@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.page_map) {
                 selectedFragment = new MapFragment();
+            } else if (itemId == R.id.page_dashboard) {
+                selectedFragment = new DashboardFragment();
             } else if (itemId == R.id.page_account) {
                 selectedFragment = new AccountFragment();
             } else if (itemId == R.id.page_settings) {
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                         .replace(R.id.fragment_container, selectedFragment)
                         .commit();
             }

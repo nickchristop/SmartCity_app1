@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_blue">#005B9F</color>
     <color name="secondary_orange">#FF8F00</color>
-    <color name="glass_surface">#CCFFFFFF</color>
-    <color name="glass_outline">#40FFFFFF</color>
+    <color name="glass_background">#CCFFFFFF</color>
+    <color name="glass_outline">#4DFFFFFF</color>
     <color name="background_gray">#F2F4F7</color>
 </resources>
