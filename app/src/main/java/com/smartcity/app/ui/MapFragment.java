@@ -1,5 +1,14 @@
 package com.smartcity.app.ui;
 
+/**
+ * ACADEMIC MVVM DOCUMENTATION:
+ * This class operates within the strict boundaries of the Model-View-ViewModel (MVVM) architecture.
+ * Leveraging the Repository Pattern, the UI and ViewModel layers are strictly "Backend Agnostic."
+ * They maintain zero direct references to Firebase capabilities. This decoupling allows the underlying 
+ * data source to be seamlessly migrated to a REST API or Supabase without triggering 
+ * cascading source rewrites across the application surface.
+ */
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;

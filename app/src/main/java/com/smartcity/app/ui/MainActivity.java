@@ -1,5 +1,14 @@
 package com.smartcity.app.ui;
 
+/**
+ * ACADEMIC MVVM DOCUMENTATION:
+ * This class operates within the strict boundaries of the Model-View-ViewModel (MVVM) architecture.
+ * Leveraging the Repository Pattern, the UI and ViewModel layers are strictly "Backend Agnostic."
+ * They maintain zero direct references to Firebase capabilities. This decoupling allows the underlying 
+ * data source to be seamlessly migrated to a REST API or Supabase without triggering 
+ * cascading source rewrites across the application surface.
+ */
+
 import com.smartcity.app.R;
 
 import android.os.Bundle;
@@ -21,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Firebase legacy test logic has been decoupled and removed.
 
-        // Load the Map (Home) by default
+        // Load the Dashboard (Landing) by default
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new MapFragment())
+                .replace(R.id.fragment_container, new DashboardFragment())
                 .commit();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
