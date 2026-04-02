@@ -1,13 +1,6 @@
 package com.smartcity.app.viewmodel;
 
-/**
- * ACADEMIC MVVM DOCUMENTATION:
- * This class operates within the strict boundaries of the Model-View-ViewModel (MVVM) architecture.
- * Leveraging the Repository Pattern, the UI and ViewModel layers are strictly "Backend Agnostic."
- * They maintain zero direct references to Firebase capabilities. This decoupling allows the underlying 
- * data source to be seamlessly migrated to a REST API or Supabase without triggering 
- * cascading source rewrites across the application surface.
- */
+import android.net.Uri;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,32 +11,41 @@ import com.smartcity.app.data.repository.FirebaseRepository;
 import java.util.List;
 
 /**
- * ViewModel responsible for managing Map data states and decoupling the UI
- * from direct Firebase interactions.
+ * ViewModel for map and report data.
+ * Bridges the UI layer to FirebaseRepository without direct Firebase references in the UI.
  */
 public class MapViewModel extends ViewModel {
+
     private final FirebaseRepository repository;
     private final LiveData<List<Report>> reportsLiveData;
 
     public MapViewModel() {
-        // Normally, we would use Hilt or Dagger for dependency injection here
         repository = new FirebaseRepository();
-        
-        // Cache the LiveData stream directly from the single source of truth
+        // Cache the LiveData stream from the single source of truth
         reportsLiveData = repository.getReportsLiveData();
     }
 
-    /**
-     * Exposes the observable live data stream to the UI layer.
-     */
+    /** Exposes the reactive reports stream to the UI */
     public LiveData<List<Report>> getReportsLiveData() {
         return reportsLiveData;
     }
 
-    /**
-     * Bridges user submission from the BottomSheet to the repository layer.
-     */
+    /** Submit a plain report (no images) */
     public void submitReport(Report report) {
         repository.submitReport(report);
+    }
+
+    /**
+     * Submit a report with optional images.
+     * Images are uploaded to Firebase Storage first; download URLs are stored in the report.
+     */
+    public void submitReportWithImages(Report report, List<Uri> imageUris) {
+        repository.uploadImages(report.getId().isEmpty()
+                ? String.valueOf(System.currentTimeMillis()) : report.getId(),
+                imageUris,
+                downloadUrls -> {
+                    report.setImageUrls(downloadUrls);
+                    repository.submitReport(report);
+                });
     }
 }

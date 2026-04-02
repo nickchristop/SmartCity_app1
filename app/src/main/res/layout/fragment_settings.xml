@@ -1,24 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Settings: Theme (Light/Dark) + Language (English/Greek). "Follow System" and "Location Privacy" removed. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="24dp">
-    
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Appearance" android:textSize="22sp" android:textStyle="bold" android:layout_marginBottom="16dp"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-    <RadioGroup android:id="@+id/rg_theme" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <RadioButton android:id="@+id/rb_theme_light" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Light Mode"/>
-        <RadioButton android:id="@+id/rb_theme_dark" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dark Mode"/>
-        <RadioButton android:id="@+id/rb_theme_system" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Follow System"/>
+    <!-- Appearance section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_appearance"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Only Light and Dark — "Follow System" is removed -->
+    <RadioGroup
+        android:id="@+id/rg_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp">
+
+        <RadioButton
+            android:id="@+id/rb_theme_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_light_mode"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rb_theme_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_dark_mode"
+            android:textSize="16sp"/>
     </RadioGroup>
-    
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Notifications &amp; Privacy" android:textSize="22sp" android:textStyle="bold" android:layout_marginTop="32dp" android:layout_marginBottom="16dp"/>
 
-    <Switch android:id="@+id/switch_notifications" android:layout_width="match_parent" android:layout_height="wrap_content" 
-        android:text="Push Notifications" android:checked="true" android:textSize="18sp" android:layout_marginBottom="16dp"/>
+    <!-- Language section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_language"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
 
-    <Switch android:id="@+id/switch_location" android:layout_width="match_parent" android:layout_height="wrap_content" 
-        android:text="Location Privacy Mode" android:checked="false" android:textSize="18sp"/>
-    
+    <!-- Language radio group: English and Greek -->
+    <RadioGroup
+        android:id="@+id/rg_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_lang_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_english"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rb_lang_el"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_greek"
+            android:textSize="16sp"/>
+    </RadioGroup>
+
 </LinearLayout>

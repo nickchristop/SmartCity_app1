@@ -7,4 +7,8 @@
     <color name="glass_background">#CCFFFFFF</color>
     <color name="glass_outline">#4DFFFFFF</color>
     <color name="background_gray">#F2F4F7</color>
+    <!-- Hazard status badge colors -->
+    <color name="status_pending">#FF8F00</color>
+    <color name="status_resolved">#388E3C</color>
+    <color name="status_in_progress">#1976D2</color>
 </resources>

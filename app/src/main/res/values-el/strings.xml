@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">SmartCity Hub</string>
+
+    <!-- Ετικέτες κάτω πλοήγησης -->
+    <string name="nav_map">Χάρτης</string>
+    <string name="nav_hazards">Κίνδυνοι</string>
+    <string name="nav_account">Λογαριασμός</string>
+    <string name="nav_settings">Ρυθμίσεις</string>
+
+    <!-- Οθόνη χάρτη -->
+    <string name="btn_report_issue">Αναφορά Προβλήματος</string>
+    <string name="msg_gps_disabled">Το GPS είναι απενεργοποιημένο. Ενεργοποιήστε την Τοποθεσία στις Ρυθμίσεις.</string>
+
+    <!-- Οθόνη κινδύνων -->
+    <string name="title_hazards">Ενεργοί Κίνδυνοι</string>
+    <string name="title_past_hazards">Παλαιότεροι Κίνδυνοι</string>
+    <string name="empty_hazards">Δεν υπάρχουν ενεργές αναφορές.</string>
+    <string name="empty_past_hazards">Δεν βρέθηκαν παλαιότεροι κίνδυνοι.</string>
+
+    <!-- Φόρμα αναφοράς -->
+    <string name="title_report_form">Αναφορά Προβλήματος</string>
+    <string name="hint_report_title">Τίτλος Προβλήματος *</string>
+    <string name="hint_report_desc">Περιγραφή (Προαιρετικό)</string>
+    <string name="btn_get_location">Χρήση GPS Τοποθεσίας</string>
+    <string name="btn_add_images">Προσθήκη Εικόνων (έως 5)</string>
+    <string name="btn_submit_report">Υποβολή Αναφοράς</string>
+    <string name="err_title_empty">Ο τίτλος είναι υποχρεωτικός</string>
+    <string name="msg_location_fetching">Λήψη τοποθεσίας…</string>
+    <string name="msg_location_unavailable">Μη διαθέσιμη τοποθεσία. Ενεργοποιήστε το GPS.</string>
+
+    <!-- Ρυθμίσεις -->
+    <string name="title_appearance">Εμφάνιση</string>
+    <string name="label_light_mode">Φωτεινό Θέμα</string>
+    <string name="label_dark_mode">Σκοτεινό Θέμα</string>
+    <string name="title_language">Γλώσσα</string>
+    <string name="label_english">English</string>
+    <string name="label_greek">Ελληνικά</string>
+
+    <!-- Λογαριασμός / Σύνδεση -->
+    <string name="btn_sign_out">Αποσύνδεση</string>
+    <string name="label_uid">ID Χρήστη: %s</string>
+</resources>

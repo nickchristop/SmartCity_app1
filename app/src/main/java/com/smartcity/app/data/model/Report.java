@@ -1,103 +1,70 @@
 package com.smartcity.app.data.model;
 
-/**
- * ACADEMIC MVVM DOCUMENTATION:
- * This class operates within the strict boundaries of the Model-View-ViewModel (MVVM) architecture.
- * Leveraging the Repository Pattern, the UI and ViewModel layers are strictly "Backend Agnostic."
- * They maintain zero direct references to Firebase capabilities. This decoupling allows the underlying 
- * data source to be seamlessly migrated to a REST API or Supabase without triggering 
- * cascading source rewrites across the application surface.
- */
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * POJO representing a crowdsourced hazard report.
+ * Firebase Realtime Database requires a no-arg constructor and public getters/setters.
  */
 public class Report {
     private String id;
     private String userId;
+    private String submitterName; // Display name of the person who filed the report
     private String title;
     private String description;
     private String status;
     private double latitude;
     private double longitude;
     private long timestamp;
+    // Firebase Storage download URLs for attached images (max 5)
+    private List<String> imageUrls;
 
-    // Required default constructor for Firebase Realtime Database
-    public Report() {
+    // Required by Firebase for deserialization
+    public Report() {}
+
+    public Report(String id, String userId, String submitterName, String title,
+                  String description, String status,
+                  double latitude, double longitude, long timestamp) {
+        this.id            = id;
+        this.userId        = userId;
+        this.submitterName = submitterName;
+        this.title         = title;
+        this.description   = description;
+        this.status        = status;
+        this.latitude      = latitude;
+        this.longitude     = longitude;
+        this.timestamp     = timestamp;
+        this.imageUrls     = new ArrayList<>();
     }
 
-    public Report(String id, String userId, String title, String description, String status, double latitude, double longitude, long timestamp) {
-        this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-        this.status = status;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.timestamp = timestamp;
-    }
+    public String getId()            { return id; }
+    public void   setId(String id)   { this.id = id; }
 
-    public String getId() {
-        return id;
-    }
+    public String getUserId()               { return userId; }
+    public void   setUserId(String userId)  { this.userId = userId; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getSubmitterName()                        { return submitterName != null ? submitterName : ""; }
+    public void   setSubmitterName(String submitterName)    { this.submitterName = submitterName; }
 
-    public String getUserId() {
-        return userId;
-    }
+    public String getTitle()             { return title; }
+    public void   setTitle(String title) { this.title = title; }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    public String getDescription()                   { return description; }
+    public void   setDescription(String description) { this.description = description; }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getStatus()              { return status; }
+    public void   setStatus(String status) { this.status = status; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public double getLatitude()                  { return latitude; }
+    public void   setLatitude(double latitude)   { this.latitude = latitude; }
 
-    public String getDescription() {
-        return description;
-    }
+    public double getLongitude()                 { return longitude; }
+    public void   setLongitude(double longitude) { this.longitude = longitude; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public long getTimestamp()                { return timestamp; }
+    public void setTimestamp(long timestamp)  { this.timestamp = timestamp; }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
+    public List<String> getImageUrls()                      { return imageUrls; }
+    public void         setImageUrls(List<String> imageUrls){ this.imageUrls = imageUrls; }
 }

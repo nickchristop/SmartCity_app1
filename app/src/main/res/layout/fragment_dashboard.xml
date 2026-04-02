@@ -1,184 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Hazards fragment: lists active and past community reports -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_glassmorphism_gradient"
-    android:padding="24dp">
+    android:orientation="vertical"
+    android:background="@color/background_gray">
 
+    <!-- Screen title -->
     <TextView
-        android:id="@+id/text_dashboard_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="City Snapshot"
-        android:textColor="@color/black"
-        android:textSize="32sp"
+        android:text="@string/title_hazards"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/black"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="8dp"/>
 
+    <!-- Tab strip: Active / Past -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_hazards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabTextColor="@color/primary_blue"
+        app:tabSelectedTextColor="@color/primary_blue"
+        app:tabIndicatorColor="@color/primary_blue"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- RecyclerView shows the active or past list depending on selected tab -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_hazards"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="12dp"
+        android:clipToPadding="false"/>
+
+    <!-- Shown when the selected list is empty -->
     <TextView
-        android:id="@+id/text_dashboard_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Real-time community health overview"
-        android:textColor="#757575"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_dashboard_title" />
-
-    <!-- Glassmorphism Stats Grid -->
-    <LinearLayout
-        android:id="@+id/ll_stats_container"
+        android:id="@+id/tv_hazards_empty"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintTop_toBottomOf="@id/text_dashboard_subtitle">
-
-        <!-- Active Hazards Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            app:cardBackgroundColor="#99FFFFFF"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_dialog_alert"
-                    app:tint="@color/secondary_orange" />
-
-                <TextView
-                    android:id="@+id/tv_active_hazards"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Active Hazards"
-                    android:textColor="#616161"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Latest Update Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            app:cardBackgroundColor="#99FFFFFF"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="20dp"
-                android:gravity="top">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_recent_history"
-                    app:tint="@color/primary_blue" />
-
-                <TextView
-                    android:id="@+id/tv_latest_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="--"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Latest Fix"
-                    android:textColor="#616161"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-    <!-- Empty State / Safe State -->
-    <LinearLayout
-        android:id="@+id/ll_empty_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/ll_stats_container"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:text="@string/empty_hazards"
+        android:textColor="#9E9E9E"
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@android:drawable/ic_dialog_info"
-            app:tint="@color/primary_blue"
-            android:alpha="0.5" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="City is Safe!"
-            android:textColor="@color/primary_blue"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-            
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="No active reports pinged in the database."
-            android:textColor="#757575"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <!-- Floating Action Button for Report -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab_dashboard_report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:text="Report Fix"
-        app:icon="@android:drawable/ic_menu_add"
-        app:iconTint="@color/white"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/primary_blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

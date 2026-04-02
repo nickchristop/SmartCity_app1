@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Report form: opened as a BottomSheet when user taps "Report an Issue" -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,88 +18,125 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <!-- Form title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Report a Fix"
+                android:text="@string/title_report_form"
                 android:textColor="#212121"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="4dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Provide details about the issue so the city can address it efficiently."
+                android:text="Provide details so the city can address it efficiently."
                 android:textColor="#757575"
-                android:textSize="16sp"
-                android:layout_marginBottom="32dp" />
+                android:textSize="14sp"
+                android:layout_marginBottom="24dp"/>
 
-            <!-- Title Input -->
+            <!-- Title field (required) -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_report_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Issue Title">
+                android:hint="@string/hint_report_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_report_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapSentences" />
+                    android:inputType="textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Description Input -->
+            <!-- Description field (optional) -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:hint="Description (Optional)">
+                android:layout_marginBottom="20dp"
+                android:hint="@string/hint_report_desc">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_report_desc"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="100dp"
                     android:gravity="top|start"
                     android:inputType="textMultiLine"
-                    android:lines="5" />
+                    android:lines="4"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Location section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location"
                 android:textColor="#333333"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Shows autofilled coordinates or status message -->
+            <TextView
+                android:id="@+id/tv_location_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/msg_location_fetching"
+                android:textColor="#757575"
+                android:textSize="13sp"
+                android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_get_location"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="Use My Current GPS Location"
+                android:layout_height="52dp"
+                android:text="@string/btn_get_location"
                 app:icon="@android:drawable/ic_menu_mylocation"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginBottom="20dp"/>
 
-            <Space
+            <!-- Image picker section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Images (optional, max 5)"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Shows how many images are selected -->
+            <TextView
+                android:id="@+id/tv_image_count"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:text="No images selected"
+                android:textColor="#757575"
+                android:textSize="13sp"
+                android:layout_marginBottom="8dp"/>
 
-            <!-- Submit Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_images"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="@string/btn_add_images"
+                app:icon="@android:drawable/ic_menu_gallery"
+                android:layout_marginBottom="28dp"/>
+
+            <!-- Submit button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit_report"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:text="Submit Report"
-                android:textSize="18sp"
+                android:layout_height="60dp"
+                android:text="@string/btn_submit_report"
+                android:textSize="17sp"
                 app:icon="@android:drawable/ic_menu_send"
                 app:iconGravity="textStart"
-                app:cornerRadius="12dp" />
+                app:cornerRadius="12dp"/>
 
         </LinearLayout>
     </ScrollView>

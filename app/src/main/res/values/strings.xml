@@ -1,3 +1,42 @@
 <resources>
-    <string name="app_name">My Application</string>
-</resources>
+    <string name="app_name">SmartCity Hub</string>
+
+    <!-- Bottom navigation labels -->
+    <string name="nav_map">Map</string>
+    <string name="nav_hazards">Hazards</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Map screen -->
+    <string name="btn_report_issue">Report an Issue</string>
+    <string name="msg_gps_disabled">GPS is off. Please enable Location in your device Settings.</string>
+
+    <!-- Hazards screen -->
+    <string name="title_hazards">Active Hazards</string>
+    <string name="title_past_hazards">Past Hazards</string>
+    <string name="empty_hazards">No active hazards reported.</string>
+    <string name="empty_past_hazards">No past hazards found.</string>
+
+    <!-- Report form -->
+    <string name="title_report_form">Report an Issue</string>
+    <string name="hint_report_title">Issue Title *</string>
+    <string name="hint_report_desc">Description (Optional)</string>
+    <string name="btn_get_location">Use My Current GPS Location</string>
+    <string name="btn_add_images">Add Images (max 5)</string>
+    <string name="btn_submit_report">Submit Report</string>
+    <string name="err_title_empty">Title is required</string>
+    <string name="msg_location_fetching">Getting location…</string>
+    <string name="msg_location_unavailable">Location unavailable. Enable GPS and try again.</string>
+
+    <!-- Settings screen -->
+    <string name="title_appearance">Appearance</string>
+    <string name="label_light_mode">Light Mode</string>
+    <string name="label_dark_mode">Dark Mode</string>
+    <string name="title_language">Language</string>
+    <string name="label_english">English</string>
+    <string name="label_greek">Ελληνικά (Greek)</string>
+
+    <!-- Account / Auth -->
+    <string name="btn_sign_out">Sign Out</string>
+    <string name="label_uid">User ID: %s</string>
+</resources>
