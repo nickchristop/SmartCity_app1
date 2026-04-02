@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Account screen (logged-in state): email (read-only), editable name + age, save + sign-out -->
+<!-- Account: view/edit mode toggle. UID row removed. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,19 +7,18 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray">
 
-    <!-- Sign out icon button — top right corner -->
+    <!-- Sign-out icon — top right corner -->
     <ImageButton
         android:id="@+id/btn_signout_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="12dp"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:contentDescription="Sign Out"
+        android:contentDescription="@string/btn_sign_out"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Profile card -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -33,7 +32,7 @@
             android:padding="24dp"
             android:gravity="center_horizontal">
 
-            <!-- Avatar icon -->
+            <!-- Avatar -->
             <ImageView
                 android:layout_width="96dp"
                 android:layout_height="96dp"
@@ -48,18 +47,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary_blue"
-                android:layout_marginBottom="4dp"
-                android:text="email@example.com"/>
-
-            <!-- UID (read-only, small) -->
-            <TextView
-                android:id="@+id/tv_account_uid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#9E9E9E"
-                android:textSize="12sp"
                 android:layout_marginBottom="28dp"
-                android:text="User ID: ..."/>
+                android:text="email@example.com"/>
 
             <!-- Editable Name -->
             <com.google.android.material.textfield.TextInputLayout
@@ -67,13 +56,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Your Name">
+                android:hint="@string/hint_your_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_account_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName"
+                    android:enabled="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Editable Age -->
@@ -82,24 +72,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:hint="Your Age">
+                android:hint="@string/hint_your_age">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_account_age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:enabled="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Save profile button -->
+            <!-- Edit / Save profile button (label toggled in code) -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="Save Profile"/>
+                android:text="@string/btn_edit_profile"/>
 
-            <!-- Sign out (large button, same as before) -->
+            <!-- Sign out -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
@@ -109,5 +100,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

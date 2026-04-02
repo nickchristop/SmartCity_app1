@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Report form: opened as a BottomSheet when user taps "Report an Issue" -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,7 +17,6 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Form title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,12 +29,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Provide details so the city can address it efficiently."
+                android:text="@string/subtitle_report_form"
                 android:textColor="#757575"
                 android:textSize="14sp"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- Title field (required) -->
+            <!-- Title field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_report_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -44,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/hint_report_title">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_report_title"
                     android:layout_width="match_parent"
@@ -52,14 +49,13 @@
                     android:inputType="textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Description field (optional) -->
+            <!-- Description field -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:hint="@string/hint_report_desc">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_report_desc"
                     android:layout_width="match_parent"
@@ -73,13 +69,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"
+                android:text="@string/label_location_section"
                 android:textColor="#333333"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- Shows autofilled coordinates or status message -->
             <TextView
                 android:id="@+id/tv_location_status"
                 android:layout_width="match_parent"
@@ -98,22 +93,21 @@
                 app:icon="@android:drawable/ic_menu_mylocation"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- Image picker section -->
+            <!-- Images section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Images (optional, max 5)"
+                android:text="@string/label_images_section"
                 android:textColor="#333333"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- Shows how many images are selected -->
             <TextView
                 android:id="@+id/tv_image_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No images selected"
+                android:text="@string/text_no_images"
                 android:textColor="#757575"
                 android:textSize="13sp"
                 android:layout_marginBottom="8dp"/>
@@ -127,7 +121,7 @@
                 app:icon="@android:drawable/ic_menu_gallery"
                 android:layout_marginBottom="28dp"/>
 
-            <!-- Submit button -->
+            <!-- Submit -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit_report"
                 android:layout_width="match_parent"
@@ -140,5 +134,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

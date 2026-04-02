@@ -16,46 +16,41 @@ import androidx.lifecycle.ViewModelProvider;
 import com.smartcity.app.R;
 import com.smartcity.app.viewmodel.AuthViewModel;
 
-/**
- * ACADEMIC MVVM DOCUMENTATION:
- * Handles registration explicitly decoupling API tasks from View threading logic.
- */
 public class RegisterFragment extends Fragment {
 
     private AuthViewModel authViewModel;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
-        EditText etEmail = view.findViewById(R.id.et_register_email);
-        EditText etPassword = view.findViewById(R.id.et_register_password);
-        Button btnSubmit = view.findViewById(R.id.btn_register_submit);
-        View tvGoLogin = view.findViewById(R.id.tv_go_to_login);
+        EditText etEmail   = view.findViewById(R.id.et_register_email);
+        EditText etPassword= view.findViewById(R.id.et_register_password);
+        Button   btnSubmit = view.findViewById(R.id.btn_register_submit);
+        View     tvGoLogin = view.findViewById(R.id.tv_go_to_login);
 
         btnSubmit.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
-            String pwd = etPassword.getText().toString().trim();
-
+            String pwd   = etPassword.getText().toString().trim();
             if (email.isEmpty() || pwd.isEmpty()) {
-                Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.msg_fields_empty), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (pwd.length() < 6) {
-                Toast.makeText(getContext(), "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.msg_password_short), Toast.LENGTH_SHORT).show();
                 return;
             }
             authViewModel.register(email, pwd);
         });
 
-        tvGoLogin.setOnClickListener(v -> {
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new LoginFragment())
-                    .commit();
-        });
+        tvGoLogin.setOnClickListener(v ->
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new LoginFragment())
+                        .commit());
 
         authViewModel.getAuthErrorState().observe(getViewLifecycleOwner(), errorMsg -> {
             if (errorMsg != null && !errorMsg.isEmpty()) {

@@ -17,16 +17,65 @@
     <string name="empty_hazards">Δεν υπάρχουν ενεργές αναφορές.</string>
     <string name="empty_past_hazards">Δεν βρέθηκαν παλαιότεροι κίνδυνοι.</string>
 
+    <!-- Λεπτομέρειες κινδύνου -->
+    <string name="title_hazard_detail">Λεπτομέρειες Κινδύνου</string>
+    <string name="label_description">Περιγραφή</string>
+    <string name="label_location">📍 Τοποθεσία</string>
+    <string name="label_reported_by">👤 Αναφέρθηκε από</string>
+    <string name="label_submitted">🕐 Υποβλήθηκε</string>
+    <string name="label_images">🖼 Εικόνες</string>
+    <string name="text_no_description">Δεν υπάρχει περιγραφή.</string>
+    <string name="text_anonymous">Ανώνυμος</string>
+    <string name="btn_back">Πίσω</string>
+
     <!-- Φόρμα αναφοράς -->
     <string name="title_report_form">Αναφορά Προβλήματος</string>
+    <string name="subtitle_report_form">Παρέχετε λεπτομέρειες για να αντιμετωπίσει η πόλη το πρόβλημα.</string>
     <string name="hint_report_title">Τίτλος Προβλήματος *</string>
+    <string name="label_location_section">Τοποθεσία</string>
     <string name="hint_report_desc">Περιγραφή (Προαιρετικό)</string>
-    <string name="btn_get_location">Χρήση GPS Τοποθεσίας</string>
+    <string name="btn_get_location">Χρήση Τρέχουσας GPS Τοποθεσίας</string>
+    <string name="label_images_section">Εικόνες (προαιρετικό, έως 5)</string>
+    <string name="text_no_images">Δεν επιλέχθηκαν εικόνες</string>
     <string name="btn_add_images">Προσθήκη Εικόνων (έως 5)</string>
     <string name="btn_submit_report">Υποβολή Αναφοράς</string>
     <string name="err_title_empty">Ο τίτλος είναι υποχρεωτικός</string>
     <string name="msg_location_fetching">Λήψη τοποθεσίας…</string>
     <string name="msg_location_unavailable">Μη διαθέσιμη τοποθεσία. Ενεργοποιήστε το GPS.</string>
+    <string name="msg_report_submitted">Η αναφορά υποβλήθηκε!</string>
+    <string name="title_image_source">Προσθήκη Εικόνας</string>
+    <string name="opt_camera">Λήψη Φωτογραφίας (Κάμερα)</string>
+    <string name="opt_gallery">Επιλογή από Γκαλερί</string>
+    <string name="msg_max_images">Έχουν ήδη επιλεγεί 5 εικόνες.</string>
+    <string name="msg_images_limited">Μέγιστο 5 εικόνες. Επιλέχθηκαν οι πρώτες 5.</string>
+    <string name="msg_camera_denied">Η άδεια κάμερας απορρίφθηκε.</string>
+    <string name="msg_camera_error">Δεν ήταν δυνατό το άνοιγμα της κάμερας.</string>
+    <string name="fmt_image_count">%1$d / 5 εικόνα(ες) επιλεγμένη(ες)</string>
+
+    <!-- Οθόνη σύνδεσης -->
+    <string name="title_login">Καλώς Ήρθατε</string>
+    <string name="hint_email">Διεύθυνση Email</string>
+    <string name="hint_password">Κωδικός Πρόσβασης</string>
+    <string name="btn_sign_in">Σύνδεση</string>
+    <string name="link_go_register">Δεν έχετε λογαριασμό; Εγγραφή</string>
+    <string name="msg_fields_empty">Τα πεδία δεν μπορούν να είναι κενά</string>
+
+    <!-- Οθόνη εγγραφής -->
+    <string name="title_register">Δημιουργία Λογαριασμού</string>
+    <string name="hint_password_min">Κωδικός (τουλ. 6 χαρακτήρες)</string>
+    <string name="btn_register">Εγγραφή</string>
+    <string name="link_go_login">Έχετε ήδη λογαριασμό; Σύνδεση</string>
+    <string name="msg_password_short">Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες</string>
+    <string name="msg_no_account">Δεν έχετε λογαριασμό; Δημιουργήστε τώρα.</string>
+    <string name="action_register">Εγγραφή</string>
+
+    <!-- Οθόνη λογαριασμού (συνδεδεμένος) -->
+    <string name="hint_your_name">Το Όνομά σας</string>
+    <string name="hint_your_age">Η Ηλικία σας</string>
+    <string name="btn_edit_profile">Επεξεργασία Προφίλ</string>
+    <string name="btn_save_profile">Αποθήκευση Προφίλ</string>
+    <string name="btn_sign_out">Αποσύνδεση</string>
+    <string name="msg_saved">Αποθηκεύτηκε!</string>
 
     <!-- Ρυθμίσεις -->
     <string name="title_appearance">Εμφάνιση</string>
@@ -36,7 +85,7 @@
     <string name="label_english">English</string>
     <string name="label_greek">Ελληνικά</string>
 
-    <!-- Λογαριασμός / Σύνδεση -->
-    <string name="btn_sign_out">Αποσύνδεση</string>
+    <!-- Διάφορα -->
     <string name="label_uid">ID Χρήστη: %s</string>
+    <string name="text_location_fallback">📍 38.04920, 23.79690 (Μαρούσι)</string>
 </resources>
