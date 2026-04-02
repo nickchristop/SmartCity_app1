@@ -9,7 +9,10 @@
 
     <!-- Map screen -->
     <string name="btn_report_issue">Report an Issue</string>
+    <string name="hint_search_area">Search your area…</string>
     <string name="msg_gps_disabled">GPS is off. Please enable Location in your device Settings.</string>
+    <string name="msg_location_denied">Location denied. Using default zone.</string>
+    <string name="msg_enable_gps">Please turn on GPS / Location Services</string>
 
     <!-- Hazards screen -->
     <string name="title_hazards">Active Hazards</string>
@@ -51,6 +54,11 @@
     <string name="msg_camera_denied">Camera permission denied.</string>
     <string name="msg_camera_error">Could not open camera.</string>
     <string name="fmt_image_count">%1$d / 5 image(s) selected</string>
+    <string name="err_desc_empty">Description is required</string>
+    <string name="err_photo_required">At least one photo is required</string>
+    <string name="msg_login_required_title">Sign In Required</string>
+    <string name="msg_login_required_body">You must be signed in to report an issue.</string>
+    <string name="btn_go_sign_in">Sign In</string>
 
     <!-- Login screen -->
     <string name="title_login">Welcome Back</string>
@@ -84,8 +92,23 @@
     <string name="title_language">Language</string>
     <string name="label_english">English</string>
     <string name="label_greek">Ελληνικά (Greek)</string>
+    <string name="title_contact">City Contact</string>
+    <string name="label_contact_phone">📞 +30 210 000 0000</string>
+    <string name="label_contact_info">Municipal Services Hotline (mock)</string>
+    <string name="title_gps_mock">GPS Mock Location</string>
+    <string name="hint_mock_lat">Latitude (e.g. 38.04169)</string>
+    <string name="hint_mock_lng">Longitude (e.g. 23.80496)</string>
+    <string name="btn_apply_mock">Apply Mock Location</string>
+    <string name="msg_mock_applied">Mock location saved.</string>
+    <string name="msg_mock_invalid">Invalid coordinates.</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_id">hazard_updates</string>
+    <string name="notif_channel_name">Hazard Updates</string>
+    <string name="notif_completed_title">Hazard Resolved 🎉</string>
+    <string name="notif_completed_body">"%s" has been marked as Completed.</string>
 
     <!-- Misc -->
     <string name="label_uid">User ID: %s</string>
-    <string name="text_location_fallback">📍 38.04920, 23.79690 (Marousi)</string>
+    <string name="text_location_fallback">📍 38.04169, 23.80496 (Marousi)</string>
 </resources>

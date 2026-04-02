@@ -9,7 +9,10 @@
 
     <!-- Οθόνη χάρτη -->
     <string name="btn_report_issue">Αναφορά Προβλήματος</string>
+    <string name="hint_search_area">Αναζήτηση περιοχής…</string>
     <string name="msg_gps_disabled">Το GPS είναι απενεργοποιημένο. Ενεργοποιήστε την Τοποθεσία στις Ρυθμίσεις.</string>
+    <string name="msg_location_denied">Αρνήθηκε η τοποθεσία. Χρήση προεπιλεγμένης ζώνης.</string>
+    <string name="msg_enable_gps">Παρακαλώ ενεργοποιήστε το GPS / Υπηρεσίες Τοποθεσίας</string>
 
     <!-- Οθόνη κινδύνων -->
     <string name="title_hazards">Ενεργοί Κίνδυνοι</string>
@@ -51,6 +54,11 @@
     <string name="msg_camera_denied">Η άδεια κάμερας απορρίφθηκε.</string>
     <string name="msg_camera_error">Δεν ήταν δυνατό το άνοιγμα της κάμερας.</string>
     <string name="fmt_image_count">%1$d / 5 εικόνα(ες) επιλεγμένη(ες)</string>
+    <string name="err_desc_empty">Η περιγραφή είναι υποχρεωτική</string>
+    <string name="err_photo_required">Απαιτείται τουλάχιστον μία φωτογραφία</string>
+    <string name="msg_login_required_title">Απαιτείται Σύνδεση</string>
+    <string name="msg_login_required_body">Πρέπει να είστε συνδεδεμένοι για να αναφέρετε πρόβλημα.</string>
+    <string name="btn_go_sign_in">Σύνδεση</string>
 
     <!-- Οθόνη σύνδεσης -->
     <string name="title_login">Καλώς Ήρθατε</string>
@@ -84,8 +92,23 @@
     <string name="title_language">Γλώσσα</string>
     <string name="label_english">English</string>
     <string name="label_greek">Ελληνικά</string>
+    <string name="title_contact">Επικοινωνία Δήμου</string>
+    <string name="label_contact_phone">📞 +30 210 000 0000</string>
+    <string name="label_contact_info">Γραμμή Δημοτικών Υπηρεσιών (mock)</string>
+    <string name="title_gps_mock">Mock Τοποθεσία GPS</string>
+    <string name="hint_mock_lat">Γεωγραφικό Πλάτος (π.χ. 38.04169)</string>
+    <string name="hint_mock_lng">Γεωγραφικό Μήκος (π.χ. 23.80496)</string>
+    <string name="btn_apply_mock">Εφαρμογή Mock Τοποθεσίας</string>
+    <string name="msg_mock_applied">Η mock τοποθεσία αποθηκεύτηκε.</string>
+    <string name="msg_mock_invalid">Μη έγκυρες συντεταγμένες.</string>
+
+    <!-- Ειδοποιήσεις -->
+    <string name="notif_channel_id">hazard_updates</string>
+    <string name="notif_channel_name">Ενημερώσεις Κινδύνων</string>
+    <string name="notif_completed_title">Κίνδυνος Επιλύθηκε 🎉</string>
+    <string name="notif_completed_body">"%s" έχει επισημανθεί ως Ολοκληρωμένο.</string>
 
     <!-- Διάφορα -->
     <string name="label_uid">ID Χρήστη: %s</string>
-    <string name="text_location_fallback">📍 38.04920, 23.79690 (Μαρούσι)</string>
+    <string name="text_location_fallback">📍 38.04169, 23.80496 (Μαρούσι)</string>
 </resources>

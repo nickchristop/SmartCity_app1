@@ -3,26 +3,30 @@ package com.smartcity.app.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.smartcity.app.R;
+import com.smartcity.app.viewmodel.AuthViewModel;
 
 /**
  * Single-Activity host.
  * - Applies persisted locale via SettingsFragment.applyLocale() on every attach.
  * - Applies persisted theme before super.onCreate() to prevent white-flash.
  * - Routes bottom-nav clicks to the correct fragment.
+ * - Shows/hides sign-out icon in toolbar based on auth state.
  */
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context base) {
-        // Apply saved locale so every view config uses the correct language
         super.attachBaseContext(SettingsFragment.applyLocale(base));
     }
 
@@ -44,8 +48,22 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        // --- Toolbar sign-out icon ---
+        ImageButton btnToolbarSignout = findViewById(R.id.btn_toolbar_signout);
+        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
+        // Show sign-out icon only when logged in
+        authViewModel.getUser().observe(this, user -> {
+            if (user != null) {
+                btnToolbarSignout.setVisibility(View.VISIBLE);
+            } else {
+                btnToolbarSignout.setVisibility(View.GONE);
+            }
+        });
+        btnToolbarSignout.setOnClickListener(v -> authViewModel.logout());
+
+        // --- Bottom navigation ---
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selected = getFragment(item);
             if (selected != null) {
@@ -58,12 +76,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /** Maps each bottom nav item to its Fragment */
     @Nullable
     private static Fragment getFragment(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.page_map)       return new MapFragment();
-        if (id == R.id.page_dashboard) return new HazardsFragment(); // Hazards tab
+        if (id == R.id.page_dashboard) return new HazardsFragment();
         if (id == R.id.page_account)   return new AccountFragment();
         if (id == R.id.page_settings)  return new SettingsFragment();
         return null;

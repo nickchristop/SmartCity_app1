@@ -41,33 +41,18 @@ import java.util.Locale;
 /**
  * Report form BottomSheet.
  *
- * LOCATION:
- *  Uses getCurrentLocation(HIGH_ACCURACY) for a fresh GPS measurement.
- *  If the result is null, unreachable, or matches Google HQ (emulator default),
- *  falls back to Marousi, Greece (38.0492, 23.7969) — Plus Code 2RR8+HM.
- *
- * IMAGES:
- *  Dialog offers Camera or Gallery. Max 5 images total (combined).
- *
- * ALL user-visible strings go through getString(R.string.xxx) so Greek locale is respected.
+ * MANDATORY FIELDS: title, description, at least 1 photo.
+ * LOCATION: getCurrentLocation → fallback to Settings mock (default Marousi 38.04169, 23.80496).
+ * IMAGES: Camera or Gallery dialog, max 5.
+ * AUTH: Only reachable if user is logged in (checked in MapFragment before opening).
  */
 public class ReportBottomSheet extends BottomSheetDialogFragment {
-
-    // Marousi, Greece — 2RR8+HM Marousi (fallback when GPS unavailable / emulator)
-    private static final double FALLBACK_LAT = 38.04920;
-    private static final double FALLBACK_LNG = 23.79690;
-
-    // Google HQ coords (emulator default) — detect and replace
-    private static final double GOOGLE_HQ_LAT = 37.4220;
-    private static final double GOOGLE_HQ_DELTA = 0.01; // within 1km radius
 
     private MapViewModel  mapViewModel;
     private AuthViewModel authViewModel;
     private FusedLocationProviderClient fusedLocationClient;
 
-    private double currentLat = FALLBACK_LAT;
-    private double currentLng = FALLBACK_LNG;
-
+    private double currentLat, currentLng;
     private final List<Uri> selectedImages = new ArrayList<>();
     private Uri cameraImageUri;
 
@@ -78,6 +63,11 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Init fallback from Settings mock location
+        double[] mock = SettingsFragment.getMockLocation(requireContext());
+        currentLat = mock[0];
+        currentLng = mock[1];
 
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetMultipleContents(), uris -> {
@@ -133,7 +123,7 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
         View              btnImages   = view.findViewById(R.id.btn_add_images);
         View              btnSubmit   = view.findViewById(R.id.btn_submit_report);
 
-        // Show Marousi as default immediately; attempt real GPS in background
+        // Default coordinates label from Settings mock location
         tvLocation.setText(getString(R.string.text_location_fallback));
         fetchFreshLocation(tvLocation);
 
@@ -141,13 +131,26 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
         btnImages.setOnClickListener(v -> showImageSourceDialog());
 
         btnSubmit.setOnClickListener(v -> {
+            // Validate title
             String title = etTitle.getText() != null ? etTitle.getText().toString().trim() : "";
             if (title.isEmpty()) {
                 tilTitle.setError(getString(R.string.err_title_empty));
                 return;
             }
             tilTitle.setError(null);
+
+            // Validate description (mandatory)
             String desc = etDesc.getText() != null ? etDesc.getText().toString().trim() : "";
+            if (desc.isEmpty()) {
+                Toast.makeText(getContext(), getString(R.string.err_desc_empty), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validate at least 1 photo (mandatory)
+            if (selectedImages.isEmpty()) {
+                Toast.makeText(getContext(), getString(R.string.err_photo_required), Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             String userId        = "anonymous";
             String submitterName = getString(R.string.text_anonymous);
@@ -174,13 +177,6 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
         return view;
     }
 
-    /**
-     * Requests a fresh GPS fix.
-     * Falls back to Marousi if:
-     *   - Permission not granted
-     *   - Result is null (GPS off or emulator with no mock location)
-     *   - Result matches Google HQ (emulator default ~37.422°N)
-     */
     private void fetchFreshLocation(TextView tvStatus) {
         if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -188,7 +184,6 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
             return;
         }
         tvStatus.setText(getString(R.string.msg_location_fetching));
-
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener(location -> {
                     if (location != null && !isGoogleHQ(location.getLatitude())) {
@@ -197,21 +192,18 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
                         tvStatus.setText(String.format(Locale.US,
                                 "📍 %.5f, %.5f", currentLat, currentLng));
                     } else {
-                        // GPS returned null or emulator's Google HQ default
                         applyFallback(tvStatus);
                     }
                 })
                 .addOnFailureListener(e -> applyFallback(tvStatus));
     }
 
-    /** Returns true if lat is close to Google HQ (emulator mock default ~37.42°N) */
-    private boolean isGoogleHQ(double lat) {
-        return Math.abs(lat - GOOGLE_HQ_LAT) < GOOGLE_HQ_DELTA;
-    }
+    private boolean isGoogleHQ(double lat) { return Math.abs(lat - 37.4220) < 0.01; }
 
     private void applyFallback(TextView tvStatus) {
-        currentLat = FALLBACK_LAT;
-        currentLng = FALLBACK_LNG;
+        double[] mock = SettingsFragment.getMockLocation(requireContext());
+        currentLat = mock[0];
+        currentLng = mock[1];
         tvStatus.setText(getString(R.string.text_location_fallback));
     }
 
@@ -254,8 +246,7 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
 
     private File createTempImageFile() throws IOException {
         String ts  = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
-        File   dir = requireContext().getExternalCacheDir();
-        return File.createTempFile("IMG_" + ts + "_", ".jpg", dir);
+        return File.createTempFile("IMG_" + ts + "_", ".jpg", requireContext().getExternalCacheDir());
     }
 
     private void updateImageCount() {

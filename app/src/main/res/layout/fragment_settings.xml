@@ -1,70 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Settings: Theme (Light/Dark) + Language (English/Greek). "Follow System" and "Location Privacy" removed. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Settings: Theme + Language + City Contact + GPS Mock -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:layout_height="match_parent">
 
-    <!-- Appearance section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_appearance"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="12dp"/>
-
-    <!-- Only Light and Dark — "Follow System" is removed -->
-    <RadioGroup
-        android:id="@+id/rg_theme"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp">
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <RadioButton
-            android:id="@+id/rb_theme_light"
+        <!-- Appearance section -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_light_mode"
-            android:textSize="16sp"/>
+            android:text="@string/title_appearance"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginBottom="12dp"/>
 
-        <RadioButton
-            android:id="@+id/rb_theme_dark"
+        <RadioGroup
+            android:id="@+id/rg_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp">
+            <RadioButton
+                android:id="@+id/rb_theme_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_light_mode"
+                android:textSize="16sp"/>
+            <RadioButton
+                android:id="@+id/rb_theme_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_dark_mode"
+                android:textSize="16sp"/>
+        </RadioGroup>
+
+        <!-- Language section -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_dark_mode"
-            android:textSize="16sp"/>
-    </RadioGroup>
+            android:text="@string/title_language"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginBottom="12dp"/>
 
-    <!-- Language section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_language"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="12dp"/>
+        <RadioGroup
+            android:id="@+id/rg_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp">
+            <RadioButton
+                android:id="@+id/rb_lang_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_english"
+                android:textSize="16sp"/>
+            <RadioButton
+                android:id="@+id/rb_lang_el"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_greek"
+                android:textSize="16sp"/>
+        </RadioGroup>
 
-    <!-- Language radio group: English and Greek -->
-    <RadioGroup
-        android:id="@+id/rg_language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/rb_lang_en"
+        <!-- GPS Mock Location section -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_english"
-            android:textSize="16sp"/>
+            android:text="@string/title_gps_mock"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginBottom="8dp"/>
 
-        <RadioButton
-            android:id="@+id/rb_lang_el"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/hint_mock_lat">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_mock_lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/hint_mock_lng">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_mock_lng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_apply_mock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="@string/btn_apply_mock"/>
+
+        <!-- City Contact section -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_greek"
-            android:textSize="16sp"/>
-    </RadioGroup>
+            android:text="@string/title_contact"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginBottom="8dp"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_contact_phone"
+            android:textSize="18sp"
+            android:textColor="#1565C0"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_contact_info"
+            android:textSize="13sp"
+            android:textColor="#757575"
+            android:layout_marginBottom="24dp"/>
+
+    </LinearLayout>
+</ScrollView>
