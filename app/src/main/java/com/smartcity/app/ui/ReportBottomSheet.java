@@ -123,9 +123,16 @@ public class ReportBottomSheet extends BottomSheetDialogFragment {
         View              btnImages   = view.findViewById(R.id.btn_add_images);
         View              btnSubmit   = view.findViewById(R.id.btn_submit_report);
 
-        // Default coordinates label from Settings mock location
-        tvLocation.setText(getString(R.string.text_location_fallback));
-        fetchFreshLocation(tvLocation);
+        com.google.android.gms.maps.model.LatLng pinned = mapViewModel.getPinnedLocation();
+        if (pinned != null) {
+            currentLat = pinned.latitude;
+            currentLng = pinned.longitude;
+            tvLocation.setText(String.format(java.util.Locale.US, "📍 Pinned: %.5f, %.5f", currentLat, currentLng));
+        } else {
+            // Default coordinates label from Settings mock location
+            tvLocation.setText(getString(R.string.text_location_fallback));
+            fetchFreshLocation(tvLocation);
+        }
 
         btnLocation.setOnClickListener(v -> fetchFreshLocation(tvLocation));
         btnImages.setOnClickListener(v -> showImageSourceDialog());

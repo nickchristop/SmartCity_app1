@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="?attr/colorSurface">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_report_form"
-                android:textColor="#212121"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp"/>
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/subtitle_report_form"
-                android:textColor="#757575"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 android:layout_marginBottom="24dp"/>
 
@@ -46,6 +46,7 @@
                     android:id="@+id/edit_report_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
                     android:inputType="textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,6 +63,7 @@
                     android:layout_height="100dp"
                     android:gravity="top|start"
                     android:inputType="textMultiLine"
+                    android:textColor="?attr/colorOnSurface"
                     android:lines="4"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_location_section"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
@@ -80,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/msg_location_fetching"
-                android:textColor="#757575"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="13sp"
                 android:layout_marginBottom="8dp"/>
 
@@ -98,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_images_section"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
@@ -108,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_no_images"
-                android:textColor="#757575"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="13sp"
                 android:layout_marginBottom="8dp"/>
 

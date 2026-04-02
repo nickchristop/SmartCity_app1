@@ -107,10 +107,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
+        googleMap.setOnMapClickListener(latLng -> {
+            viewModel.setPinnedLocation(latLng);
+            if (viewModel.getReportsLiveData().getValue() != null) {
+                updateMapMarkers(viewModel.getReportsLiveData().getValue());
+            } else {
+                updateMapMarkers(new java.util.ArrayList<>());
+            }
+        });
+
         // Boot to mock/fallback location from Settings
         double[] mock = SettingsFragment.getMockLocation(requireContext());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(mock[0], mock[1]), 14f));
+                new LatLng(mock[0], mock[1]), 15f));
 
         setMapStyle();
         checkLocationPermission();
@@ -136,6 +145,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     .position(pos)
                     .title(report.getTitle())
                     .snippet(report.getStatus()));
+        }
+        LatLng pinned = viewModel.getPinnedLocation();
+        if (pinned != null) {
+            googleMap.addMarker(new MarkerOptions()
+                    .position(pinned)
+                    .title("Pinned Location")
+                    .icon(com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE)));
         }
     }
 
@@ -174,9 +190,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15f));
                     } else {
                         // GPS unavailable or returned emulator default
-                        com.google.android.material.snackbar.Snackbar.make(
-                                requireView(), getString(R.string.msg_enable_gps),
-                                com.google.android.material.snackbar.Snackbar.LENGTH_LONG).show();
+                        android.location.LocationManager locationManager = (android.location.LocationManager) requireContext().getSystemService(android.content.Context.LOCATION_SERVICE);
+                        if (!locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
+                            com.google.android.material.snackbar.Snackbar.make(
+                                    requireView(), getString(R.string.msg_enable_gps),
+                                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG).show();
+                        }
                         fallbackLocation();
                     }
                 })
@@ -192,6 +211,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (googleMap == null) return;
         double[] mock = SettingsFragment.getMockLocation(requireContext());
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(mock[0], mock[1]), 14f));
+                new LatLng(mock[0], mock[1]), 15f));
     }
 }

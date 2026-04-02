@@ -60,6 +60,7 @@ public class SettingsFragment extends Fragment {
                     ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
             prefs.edit().putInt(THEME_KEY, mode).apply();
             AppCompatDelegate.setDefaultNightMode(mode);
+            requireActivity().recreate();
         });
 
         // --- Language ---
@@ -73,30 +74,9 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        // --- GPS Mock Location ---
-        TextInputEditText etLat = view.findViewById(R.id.et_mock_lat);
-        TextInputEditText etLng = view.findViewById(R.id.et_mock_lng);
-
-        // Pre-fill with saved mock or default Marousi coords
-        String savedLat = prefs.getString(MOCK_LAT_KEY, String.valueOf(DEFAULT_LAT));
-        String savedLng = prefs.getString(MOCK_LNG_KEY, String.valueOf(DEFAULT_LNG));
-        etLat.setText(savedLat);
-        etLng.setText(savedLng);
-
-        view.findViewById(R.id.btn_apply_mock).setOnClickListener(v -> {
-            String latStr = etLat.getText() != null ? etLat.getText().toString().trim() : "";
-            String lngStr = etLng.getText() != null ? etLng.getText().toString().trim() : "";
-            try {
-                double lat = Double.parseDouble(latStr);
-                double lng = Double.parseDouble(lngStr);
-                prefs.edit()
-                        .putString(MOCK_LAT_KEY, String.valueOf(lat))
-                        .putString(MOCK_LNG_KEY, String.valueOf(lng))
-                        .apply();
-                Toast.makeText(getContext(), getString(R.string.msg_mock_applied), Toast.LENGTH_SHORT).show();
-            } catch (NumberFormatException e) {
-                Toast.makeText(getContext(), getString(R.string.msg_mock_invalid), Toast.LENGTH_SHORT).show();
-            }
+        // --- Device GPS Settings ---
+        view.findViewById(R.id.btn_gps_settings).setOnClickListener(v -> {
+            startActivity(new android.content.Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         });
 
         return view;
@@ -118,9 +98,6 @@ public class SettingsFragment extends Fragment {
 
     /** Read the user's mock/fallback location from SharedPrefs */
     public static double[] getMockLocation(Context ctx) {
-        SharedPreferences prefs = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        double lat = Double.parseDouble(prefs.getString(MOCK_LAT_KEY, String.valueOf(DEFAULT_LAT)));
-        double lng = Double.parseDouble(prefs.getString(MOCK_LNG_KEY, String.valueOf(DEFAULT_LNG)));
-        return new double[]{lat, lng};
+        return new double[]{DEFAULT_LAT, DEFAULT_LNG};
     }
 }

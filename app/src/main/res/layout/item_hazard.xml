@@ -8,7 +8,7 @@
     android:layout_marginBottom="10dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="3dp"
-    app:cardBackgroundColor="@color/white">
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_weight="1"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:text="Issue Title"/>
 
             <!-- Coloured status pill -->
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:textColor="#616161"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             android:maxLines="2"
             android:ellipsize="end"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:textColor="#9E9E9E"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="12sp"
             android:text="Just now"/>
 

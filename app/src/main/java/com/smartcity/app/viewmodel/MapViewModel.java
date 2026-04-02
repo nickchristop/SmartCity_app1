@@ -1,6 +1,7 @@
 package com.smartcity.app.viewmodel;
 
 import android.net.Uri;
+import com.google.android.gms.maps.model.LatLng;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,6 +19,15 @@ public class MapViewModel extends ViewModel {
 
     private final FirebaseRepository repository;
     private final LiveData<List<Report>> reportsLiveData;
+    private LatLng pinnedLocation;
+
+    public LatLng getPinnedLocation() {
+        return pinnedLocation;
+    }
+
+    public void setPinnedLocation(LatLng pinnedLocation) {
+        this.pinnedLocation = pinnedLocation;
+    }
 
     public MapViewModel() {
         repository = new FirebaseRepository();
