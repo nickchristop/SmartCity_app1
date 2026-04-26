@@ -149,7 +149,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             if (location != null) {
                                 com.google.android.gms.maps.model.LatLng currentLoc =
                                         new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude());
-                                googleMap.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(currentLoc, 17f));
+                                googleMap.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(currentLoc, 19f));
                             }
                         });
             }
@@ -166,15 +166,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        // --- NEW: Center on Marousi, Zoom to 17f, and Add Blue User Marker ---
+        // Boot camera to Marousi at hyper-local zoom
         LatLng startLocation = new LatLng(38.04095, 23.81654);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 17f));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(startLocation)
-                .title("Your Location")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        // ---------------------------------------------------------------------
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 19f));
+        // Native blue dot (setMyLocationEnabled) handles user position — no manual marker needed
 
         setMapStyle();
         checkLocationPermission();
@@ -208,14 +203,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     .title("Pinned Location")
                     .icon(com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE)));
         }
-        // Force the User Location Marker to stay
-        LatLng startLocation = new LatLng(38.04095, 23.81654);
-        googleMap.addMarker(new MarkerOptions()
-                .position(startLocation)
-                .title("Your Location")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        // Force the zoom level
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 17f));
+        // Native blue dot handles user location — no static marker needed
     }
 
     private void checkLocationPermission() {
@@ -251,7 +239,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .addOnSuccessListener(location -> {
                     if (location != null && !isGoogleHQ(location.getLatitude())) {
                         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17f));
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 19f));
                     } else {
                         // GPS unavailable or returned emulator default
                         android.location.LocationManager locationManager = (android.location.LocationManager) requireContext().getSystemService(android.content.Context.LOCATION_SERVICE);
