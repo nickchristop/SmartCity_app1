@@ -109,10 +109,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         etMapSearch = view.findViewById(R.id.et_map_search);
         if (etMapSearch != null) {
             etMapSearch.setOnEditorActionListener((v, actionId, event) -> {
-                boolean isSearch = actionId == EditorInfo.IME_ACTION_SEARCH
-                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
-                                && event.getAction() == KeyEvent.ACTION_DOWN);
-                if (!isSearch) return false;
+                boolean isSearch = actionId == EditorInfo.IME_ACTION_SEARCH;
+                boolean isEnter  = event != null
+                        && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
+                        && event.getAction() == KeyEvent.ACTION_DOWN;
+                if (!isSearch && !isEnter) return false;
                 String query = etMapSearch.getText().toString().trim();
                 if (query.isEmpty()) return true;
                 geocodeAndNavigate(query);
@@ -275,7 +276,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if (results != null && !results.isEmpty()) {
                 Address address = results.get(0);
                 LatLng searchLocation = new LatLng(address.getLatitude(), address.getLongitude());
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLocation, 16f));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLocation, 19f));
                 googleMap.addMarker(new MarkerOptions()
                         .position(searchLocation)
                         .title(query));
