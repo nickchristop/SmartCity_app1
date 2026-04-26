@@ -111,4 +111,5 @@
     <!-- Misc -->
     <string name="label_uid">User ID: %s</string>
     <string name="text_location_fallback">📍 38.04169, 23.80496 (Marousi)</string>
+    <string name="msg_location_not_found">Could not find location: "%s"</string>
 </resources>

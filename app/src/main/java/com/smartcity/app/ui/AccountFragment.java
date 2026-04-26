@@ -44,7 +44,6 @@ public class AccountFragment extends Fragment {
         TextInputEditText etAge        = view.findViewById(R.id.et_account_age);
         MaterialButton   btnToggle     = view.findViewById(R.id.btn_save_profile);
         View             btnLogout     = view.findViewById(R.id.btn_logout);
-        View             btnSignoutIcon= view.findViewById(R.id.btn_signout_icon);
 
         // Start in VIEW mode (fields disabled, button = "Edit Profile")
         setEditMode(false, etName, etAge, btnToggle);
@@ -76,7 +75,6 @@ public class AccountFragment extends Fragment {
         // Logout
         View.OnClickListener signOut = sv -> authViewModel.logout();
         btnLogout.setOnClickListener(signOut);
-        btnSignoutIcon.setOnClickListener(signOut);
 
         // Observe auth state
         authViewModel.getUser().observe(getViewLifecycleOwner(), user -> {

@@ -3,10 +3,16 @@ package com.smartcity.app.ui;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,6 +51,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapViewModel viewModel;
     private GoogleMap googleMap;
     private FusedLocationProviderClient fusedLocationClient;
+    private EditText etMapSearch;
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -97,6 +105,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View fabLocate = view.findViewById(R.id.fab_locate_me);
         if (fabLocate != null) fabLocate.setOnClickListener(v -> triggerLocateMe());
 
+        // --- Search bar: Geocoder wiring ---
+        etMapSearch = view.findViewById(R.id.et_map_search);
+        if (etMapSearch != null) {
+            etMapSearch.setOnEditorActionListener((v, actionId, event) -> {
+                boolean isSearch = actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
+                                && event.getAction() == KeyEvent.ACTION_DOWN);
+                if (!isSearch) return false;
+                String query = etMapSearch.getText().toString().trim();
+                if (query.isEmpty()) return true;
+                geocodeAndNavigate(query);
+                // Hide keyboard
+                InputMethodManager imm = (InputMethodManager) requireContext()
+                        .getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+                if (imm != null) imm.hideSoftInputFromWindow(etMapSearch.getWindowToken(), 0);
+                return true;
+            });
+        }
+
         return view;
     }
 
@@ -107,6 +134,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
+        googleMap.setOnMyLocationButtonClickListener(() -> {
+            // 1. Check for location permission
+            if (androidx.core.app.ActivityCompat.checkSelfPermission(requireContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+
+                // 2. Ask the device's actual GPS sensor where we are
+                com.google.android.gms.location.FusedLocationProviderClient fusedLocationClient =
+                        com.google.android.gms.location.LocationServices.getFusedLocationProviderClient(requireActivity());
+
+                // 3. Force a fresh, high-accuracy location read instead of checking the cache
+                fusedLocationClient.getCurrentLocation(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY, null)
+                        .addOnSuccessListener(location -> {
+                            if (location != null) {
+                                com.google.android.gms.maps.model.LatLng currentLoc =
+                                        new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude());
+                                googleMap.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(currentLoc, 17f));
+                            }
+                        });
+            }
+            return true; // stop Google's default zoom-out
+        });
+
+        // Your existing Map Click Listener remains down here...
         googleMap.setOnMapClickListener(latLng -> {
             viewModel.setPinnedLocation(latLng);
             if (viewModel.getReportsLiveData().getValue() != null) {
@@ -116,10 +166,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        // Boot to mock/fallback location from Settings
-        double[] mock = SettingsFragment.getMockLocation(requireContext());
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(mock[0], mock[1]), 15f));
+        // --- NEW: Center on Marousi, Zoom to 17f, and Add Blue User Marker ---
+        LatLng startLocation = new LatLng(38.04095, 23.81654);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 17f));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(startLocation)
+                .title("Your Location")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        // ---------------------------------------------------------------------
 
         setMapStyle();
         checkLocationPermission();
@@ -153,6 +208,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     .title("Pinned Location")
                     .icon(com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE)));
         }
+        // Force the User Location Marker to stay
+        LatLng startLocation = new LatLng(38.04095, 23.81654);
+        googleMap.addMarker(new MarkerOptions()
+                .position(startLocation)
+                .title("Your Location")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        // Force the zoom level
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 17f));
     }
 
     private void checkLocationPermission() {
@@ -212,5 +275,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         double[] mock = SettingsFragment.getMockLocation(requireContext());
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(mock[0], mock[1]), 15f));
+    }
+
+    /** Geocodes a text query and animates the camera to the first result. */
+    private void geocodeAndNavigate(String query) {
+        if (googleMap == null) return;
+        try {
+            Geocoder geocoder = new Geocoder(requireContext(), java.util.Locale.getDefault());
+            java.util.List<Address> results = geocoder.getFromLocationName(query, 1);
+            if (results != null && !results.isEmpty()) {
+                Address address = results.get(0);
+                LatLng searchLocation = new LatLng(address.getLatitude(), address.getLongitude());
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLocation, 16f));
+                googleMap.addMarker(new MarkerOptions()
+                        .position(searchLocation)
+                        .title(query));
+            } else {
+                Toast.makeText(getContext(),
+                        getString(R.string.msg_location_not_found, query),
+                        Toast.LENGTH_SHORT).show();
+            }
+        } catch (java.io.IOException e) {
+            Toast.makeText(getContext(),
+                    getString(R.string.msg_location_not_found, query),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

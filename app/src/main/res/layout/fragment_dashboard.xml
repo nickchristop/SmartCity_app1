@@ -25,9 +25,9 @@
         android:id="@+id/tab_layout_hazards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:tabTextColor="@color/primary_blue"
-        app:tabSelectedTextColor="@color/primary_blue"
+        android:background="?attr/colorPrimary"
+        app:tabTextColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/white"
         app:tabIndicatorColor="@color/primary_blue"
         android:layout_marginBottom="4dp"/>
 
