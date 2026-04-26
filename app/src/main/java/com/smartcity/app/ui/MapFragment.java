@@ -232,7 +232,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         try {
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-            googleMap.setOnMyLocationButtonClickListener(() -> { triggerLocateMe(); return true; });
+            // NOTE: setOnMyLocationButtonClickListener is set once in onMapReady with return true
+            // to prevent Android's default zoom-out. Do NOT set it again here.
             triggerLocateMe();
         } catch (SecurityException e) {
             fallbackLocation();
@@ -250,7 +251,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .addOnSuccessListener(location -> {
                     if (location != null && !isGoogleHQ(location.getLatitude())) {
                         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15f));
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17f));
                     } else {
                         // GPS unavailable or returned emulator default
                         android.location.LocationManager locationManager = (android.location.LocationManager) requireContext().getSystemService(android.content.Context.LOCATION_SERVICE);
