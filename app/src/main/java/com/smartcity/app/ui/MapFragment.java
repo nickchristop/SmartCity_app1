@@ -52,6 +52,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap googleMap;
     private FusedLocationProviderClient fusedLocationClient;
     private EditText etMapSearch;
+    private long lastSearchTime = 0; // debounce guard: prevents double-fire within 1 second
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -114,6 +115,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
                         && event.getAction() == KeyEvent.ACTION_DOWN;
                 if (!isSearch && !isEnter) return false;
+                // Debounce: ignore repeat calls within 1 second
+                long now = System.currentTimeMillis();
+                if (now - lastSearchTime < 1000) return true;
+                lastSearchTime = now;
                 String query = etMapSearch.getText().toString().trim();
                 if (query.isEmpty()) return true;
                 geocodeAndNavigate(query);
@@ -281,14 +286,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         .position(searchLocation)
                         .title(query));
             } else {
-                Toast.makeText(getContext(),
+                com.google.android.material.snackbar.Snackbar.make(
+                        requireView(),
                         getString(R.string.msg_location_not_found, query),
-                        Toast.LENGTH_SHORT).show();
+                        com.google.android.material.snackbar.Snackbar.LENGTH_LONG).show();
             }
         } catch (java.io.IOException e) {
-            Toast.makeText(getContext(),
+            com.google.android.material.snackbar.Snackbar.make(
+                    requireView(),
                     getString(R.string.msg_location_not_found, query),
-                    Toast.LENGTH_SHORT).show();
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG).show();
         }
     }
 }
